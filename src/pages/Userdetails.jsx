@@ -26,7 +26,7 @@ const user= async()=>{
     // } catch (error) {
     //   console.log(error)
     // }
-    fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
+  await  fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
       method:"GET",
       mode:"no-cors",
             headers:{
@@ -36,8 +36,8 @@ const user= async()=>{
     }).then((res) => res.json())
     .then((res) => {
         console.log(res)
-        dispatch(getProfile(data));
-            // navigate('/');
+        dispatch(getProfile(res));
+            navigate('/');
     })
     .catch((err) =>
            console.log(err)

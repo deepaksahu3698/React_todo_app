@@ -21,7 +21,7 @@ const Home = () => {
 
 
   React.useEffect(() => {
-    (!profileData) ? <Navigate to='/login' /> :
+    (!token) ? <Navigate to='/login' /> :
     handleFetch()
   }, [])
   
@@ -56,7 +56,7 @@ const Home = () => {
   
 
   return (
-    (!profileData) ? <Navigate to='/login' /> : <div className='container_home'>
+    (!token) ? <Navigate to='/login' /> : <div className='container_home'>
       <div className='profile_div'>
       
         <div className='profile' style={{border:"2px solid teal"}}>
