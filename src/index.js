@@ -5,17 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {store} from './store/store';
-
+import {store} from '../src/redux/store';
+import AddTodo from './pages/addtodo';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+
     <BrowserRouter>
       <Provider store={store}>
+        {/* <AddTodo> */}
+
       <App />
+        {/* </AddTodo> */}
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
+  
 
 );
 

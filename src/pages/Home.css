@@ -1,0 +1,28 @@
+.container_home{
+    display: flex ;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    /* align-items: center; */
+    justify-content: space-between;
+    
+    height: 600px;
+}
+.profile_div{
+
+width: 25%;
+border: 1px solid rgb(245, 245, 245);
+height: 500px;
+}
+.todo{
+    width: 25%; 
+    border: 1px solid rgb(90, 90, 211);
+}
+.todo_progress{
+    width: 25%; 
+    border: 1px solid yellow;
+}
+.todo_done{
+    width: 25%; 
+    border: 1px solid gray;
+}

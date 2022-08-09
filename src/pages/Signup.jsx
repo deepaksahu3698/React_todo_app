@@ -1,78 +1,81 @@
-import axios from "axios";
-import React from "react";
-import {useNavigate} from "react-router-dom"
+import React from 'react'
 
-const start ={
-    name: "",
-    email: "",
-    password: "",
-    username: "",
-    mobile: "",
-    description: ""
-}
+
+import { useNavigate } from 'react-router-dom'
+import { signup } from '../redux/auth/action'
+import { useDispatch } from 'react-redux'
+
 const Signup = () => {
-    const [userData, setuserData] = React.useState(start);
-const navigate=useNavigate()
-    const handleChange = (e) =>{
-        const {name , value} = e.target;
-        setuserData(prev =>(
-            { ...prev, [name] : value}
-        ));
-    }
+    const [name,setName] = React.useState("")
+    const [email,setEmail] =React.useState("")
+    const [password,setPass] = React.useState("")
+    const [userName,setUsrName] = React.useState("")
+    const [mobile,setMobile] = React.useState("")
+    const [description,setDesc] = React.useState("")
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    const handleSignup = () =>{
-        let isValid = true;
-        Object.values(userData).forEach(e => {
-            if(!e){
-                isValid = false;
+    const handleSignup = (name,email,password,userName,mobile,description) => {
+        const data = {
+            name,
+            email,
+            password ,
+            username:userName,
+            mobile,
+            description
+        }
+        fetch(`https://masai-api-mocker.herokuapp.com/auth/register`,{
+            method:"POST",
+            body: JSON.stringify(data),
+            headers:{
+                "content-Type" : "application/json"
             }
-            if(!isValid){
-                alert("Please fill all the fields");
-                return;
-            }
+        }).then((res) => res.json())
+        .then((res) => {
+            dispatch(signup());
+            navigate('/login');
         })
- 
-        axios({
-            method: "post",
-            url: "https://masai-api-mocker.herokuapp.com/auth/register",
-            data : userData
-        }).then(res => {
-            console.log(res.data.message)
-            if(res.data.message=="Registration Success"){
-alert("Registation sucessful")
-                navigate("/login")
-            }
-            else if(res.data.message=="Registration failed, user already exists"){
-                alert("User already exit please login")
-                navigate("/login")
-            }
-            
-        }).catch(res =>{
-
-        })
+        .catch((err) => console.log(err))
     }
-    return(
-        <div  >
-            {Object.keys(userData).map(e =>(
-                <div style={{"margin-top":"10px"}}>
-                     <label style={{"color":"black"}}>{e}</label>
-                    <input name = {e} key ={e} value = {userData[e]} type = "text" onChange = {handleChange} />
-                </div>
-            ))}
-            <button onClick={handleSignup}>Sign Up</button>
-        </div>
-    )
+    
+  return (
+    <div>
+        <br/>
+        <br/>
+        <label htmlFor="">Name</label>
+        <input value={name} onChange={(e) => setName(e.target.value)}  placeholder="Enter Name"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Email</label>
+        <input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Password</label>
+        <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Enter Password"  />
+        <br/>
+        <br/>
+        <label htmlFor="">User name</label>
+        <input value={userName} onChange={(e) => setUsrName(e.target.value)}  placeholder="Enter User_Name"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Mobile</label>
+        <input value={mobile} onChange={(e) => setMobile(e.target.value)}  placeholder="Enter Mobile"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Dec</label>
+        <input value={description} onChange={(e) => setDesc(e.target.value)}  placeholder="Enter Description"/>
+        <br/>
+        <br/>
+        <button onClick={() => handleSignup(name,email,password,userName,mobile,description)} >SIGNUP</button>
+    </div>
+  )
 }
 
-export default Signup;
+export default Signup
 
-/*
-{
-  "name": "MASAI School",
-  "email": "hello@masai.com"
-  "password": "secret",
-  "username": "masai-school",
-  "mobile": "9876543210",
-  "description": "A Transformation in education!" 
-}
-*/
+// "name": "MASAI School",
+//   "email": "hello@masai.com"
+//   "password": "secret",
+//   "username": "masai-school",
+//   "mobile": "9876543210",
+//   "description": "A Transformation in education!" 
