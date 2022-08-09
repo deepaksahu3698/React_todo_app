@@ -45,10 +45,11 @@ const AddTodo = () => {
   }
  
   const profileData = useSelector(state => state?.profile)
+  const token = useSelector(state => state?.token)
 
   useEffect(() => {
     (!profileData) ? <Navigate to='/login' /> : console.log(profileData)
-    // handleFetch();
+    //  handleFetch();
   }, [])
 
 //   console.log(title,state,tag ,desc)
@@ -96,7 +97,7 @@ const[allTodo,SetAlltodo]=useState([])
 
   
   return (
-    (!profileData) ? <Navigate to='/login' /> : <div className='addtodocontainer'>
+    (!token) ? <Navigate to='/login' /> : <div className='addtodocontainer'>
       <div className='profile_div'>
       
       <div className='profile' style={{border:"2px solid teal"}}>
