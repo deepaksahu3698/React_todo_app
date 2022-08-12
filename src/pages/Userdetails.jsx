@@ -3,41 +3,28 @@ import { useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { getProfile, login } from '../redux/auth/action'
 const Userdetails= ()=>{
-const dispatch=useDispatch
-    const token = useSelector(state => state?.token)
+const dispatch=useDispatch()
+    const token = useSelector(state => state?.auth.token)
  let username=JSON.parse (localStorage.getItem("Loginuser"))
- 
-console.log(token)
-const user= async()=>{
-    console.log(token)
-    // try {
-    //   let res= await fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
-    //      method:"GET",
-    //   mode:"no-cors",
-    //      headers:{
-        
-    //        Authorization: `Bearer 49b032d1552a1d15f799ddbc96e8ad11`
-    //      }
-    //    })
-    //    let data=await res.json()
-    //    console.log(data)
-    //    dispatch(getProfile(data))
+ const navigate=useNavigate()
+// console.log(token)(add)
 
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  await  fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
+const user=async ()=>{
+    // console.log(token)
+    // 
+ await fetch(` https://www.mecallapi.com/api/auth/user`,{
       method:"GET",
-      mode:"no-cors",
+      mode:"cors",
             headers:{
           
               Authorization: `Bearer ${token}`
            }
     }).then((res) => res.json())
     .then((res) => {
-        console.log(res)
-        dispatch(getProfile(res));
-            navigate('/');
+    
+        dispatch(getProfile(res.user));
+     
+          
     })
     .catch((err) =>
            console.log(err)
@@ -46,12 +33,12 @@ const user= async()=>{
    
         
 
+    return(<></>)
     }
-    user()
+}
+  
+   
 
-    return(<>
     
-    </>)
- }
-
+ 
  export default Userdetails

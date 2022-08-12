@@ -11,17 +11,18 @@ const Login = () => {
   const navigate = useNavigate()
   const [password, setPass] = React.useState("")
   const dispatch = useDispatch()
-//   const token = useSelector(state => state?.token)
+  // const token = useSelector(state => state?.token)
 
-  const handleLogin =(usrName, password) => {
+  const handleLogin =async(usrName, password) => {
     const data = {
       username:usrName,
       password: password
     }
-    localStorage.setItem("Loginuser",JSON.stringify(usrName))
-  fetch(`https://masai-api-mocker.herokuapp.com/auth/login`, {
+    console.log(data)
+    // localStorage.setItem("Loginuser",JSON.stringify(usrName))
+ await fetch(`https://www.mecallapi.com/api/login`, {
       method: "POST",
-      mode:"no-cors",
+      mode:"cors",
       body: JSON.stringify(data),
       headers: {
         "content-Type": "application/json"
@@ -29,38 +30,27 @@ const Login = () => {
     }).then((res) => res.json())
       .then((res) => {
           console.log(res)
-          dispatch(login(res.token));
-              navigate('/');
+          if(res.message=="Login failed"){
+            alert("Creat a new user")
+          }
+          dispatch(login(res.accessToken));
+             navigate("/")
       })
       .catch((err) =>
              console.log(err)
       )
-// try {
-//   let res= await fetch(`https://masai-api-mocker.herokuapp.com/auth/login`,{
-//     method: "POST",
-//           mode:"no-cors",
-//           body: JSON.stringify(data),
-//           headers: {
-//             "content-Type": "application/json"
-//           }
-//   })
-//   let dataa=await res.json()
-//   console.log(dataa)      
-//       dispatch(login(dataa.token));     
-//    navigate('/');
-// } catch (error) {
-  
-// }
+
 
       
   }
+  
   
 //   React.useEffect(handleLogin,[])
   
   return (
     <div>
       <h1>LOGIN</h1>
-      <label htmlFor="">User Name : </label>
+      <label htmlFor="">User Email : </label>
       <input value={usrName} onChange={(e) => setUsrName(e.target.value)} placeholder="Enter user name" />
       <br />
       <br />

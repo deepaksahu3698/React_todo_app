@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { logout } from '../redux/auth/action'
 // import SubTask from './SubTask'
 import "./addtodo.css"
-export const TodoContext = React.createContext();
+import { addtodo,incofficial,incother,incpersonal,togglesubtodo,inctodo,incall,incdone,incprogress } from '../redux/todo/action'
 
 const AddTodo = () => {
   const dispatch = useDispatch()
@@ -44,8 +44,8 @@ const AddTodo = () => {
     setsubtaskData(updatedData)
   }
  
-  const profileData = useSelector(state => state?.profile)
-  const token = useSelector(state => state?.token)
+  const profileData = useSelector(state => state?.auth.profile)
+  const token = useSelector(state => state?.auth.token)
 
   useEffect(() => {
     (!profileData) ? <Navigate to='/login' /> : console.log(profileData)
@@ -73,28 +73,58 @@ const[allTodo,SetAlltodo]=useState([])
         [...prev,data]
     ))
 
-    console.log(data)
-
-    fetch(`https://advtododb.herokuapp.com/tasks`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "content-Type": "application/json"
+    // console.log(data)
+    
+    
+      // console.log(data.tag)
+      if(data.tag=="official"){
+        dispatch(incofficial(1))
       }
-    }).then((res) => res.json())
-      .then((res) => {
-        alert("succefully added")
-        setTitle("")
-        setDesc("")
-        setState("")
-        setTag("")
-        setsubtaskData([])
-      })
-      .catch((err) => console.log(err))
+      if(data.tag=="personal"){
+        dispatch(incpersonal(1))
+      }
+    if(data.tag=="other"){
+      dispatch(incother(1))
+    }
+    if(data.state=="todo"){
+      dispatch(inctodo(1))
+    }
+
+    if(data.state=="inProgress"){
+      dispatch(incprogress(1))
+    }
+    if(data.state=="done"){
+      dispatch(incdone(1))
+    }
+    dispatch(addtodo(data))
+    alert("succefully added")
+    
+    navigate("/")
+
+    // fetch(`https://advtododb.herokuapp.com/tasks`, {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "content-Type": "application/json"
+    //   }
+    // }).then((res) => res.json())
+    //   .then((res) => {
+    //     alert("succefully added")
+    //     setTitle("")
+    //     setDesc("")
+    //     setState("")
+    //     setTag("")
+    //     setsubtaskData([])
+    //     navigate("/")
+    //   })
+    //   .catch((err) => console.log(err))
   }
 //   console.log(allTodo)
 
-
+const all=useSelector(state =>state?.todo.all)
+    const personal=useSelector(state =>state?.todo.personal)
+    const official=useSelector(state =>state?.todo.official)
+    const other=useSelector(state =>state?.todo.other)
   
   return (
     (!token) ? <Navigate to='/login' /> : <div className='addtodocontainer'>
@@ -106,13 +136,36 @@ const[allTodo,SetAlltodo]=useState([])
         </div>
         <hr />
         <div>
-          <div><h3>Name -{`${profileData.name}`}</h3></div>
-          <div><h3>Number -{`+91${profileData.mobile}`}</h3></div>
-          <div><h3>Email -{`${profileData.email}`}</h3></div>
+        <div><h3>First Name -{`${profileData.fname}`}</h3></div>
+            <div><h3>Last Name -{`${profileData.lname}`}</h3></div>
+            <div><h3> Email -{`${profileData.username}`}</h3></div>
+            <div><h3>User name -{`${profileData.email}`}</h3></div>
         </div>
-        <div>
-          <button onClick={() => handleLogout()} variant="contained">LOGOUT</button>
-        </div>
+
+       <div className='count_number'>
+          <div className='count_all'>
+            <h3>All</h3>
+            <h3>{all}</h3>
+          </div>
+            <div className='count_personal'>
+              <h3>
+                Personal
+              </h3>
+              <h3>{personal}</h3>
+            </div>
+            <div className='count_official'>
+              <h3>Ofricial</h3>
+              <h3>{official}</h3>
+            </div>
+            <div className='count_other'>
+              <h3>Others</h3>
+              <h3>{other}</h3>
+            </div>
+
+          </div>
+          <div>
+            <button className='logout_button' onClick={() => handleLogout()} variant="contained">LOGOUT</button>
+          </div>
       </div>
     </div>
 

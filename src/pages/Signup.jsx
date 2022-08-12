@@ -6,25 +6,27 @@ import { signup } from '../redux/auth/action'
 import { useDispatch } from 'react-redux'
 
 const Signup = () => {
-    const [name,setName] = React.useState("")
-    const [email,setEmail] =React.useState("")
-    const [password,setPass] = React.useState("")
+    const [fname,setFName] = React.useState("")
+    const [lname,setLName] = React.useState("")
     const [userName,setUsrName] = React.useState("")
-    const [mobile,setMobile] = React.useState("")
-    const [description,setDesc] = React.useState("")
+    const [password,setPass] = React.useState("")
+    const [email,setEmail] =React.useState("")
+   
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const handleSignup = (name,email,password,userName,mobile,description) => {
+    const handleSignup =async (fname,lname,userName,password,email) => {
         const data = {
-            name,
-            email,
-            password ,
+            fname,
+            lname,
             username:userName,
-            mobile,
-            description
+            password ,
+            email,
+            avatar: "https://www.mecallapi.com/users/cat.png"
+            
         }
-        fetch(`https://masai-api-mocker.herokuapp.com/auth/register`,{
+        console.log(data)
+      await fetch(`https://www.mecallapi.com/api/users/create`,{
             method:"POST",
             body: JSON.stringify(data),
             headers:{
@@ -42,31 +44,28 @@ const Signup = () => {
     <div>
         <br/>
         <br/>
-        <label htmlFor="">Name</label>
-        <input value={name} onChange={(e) => setName(e.target.value)}  placeholder="Enter Name"  />
+        <label htmlFor="">First-Name</label>
+        <input value={fname} onChange={(e) => setFName(e.target.value)}  placeholder="Enter First Name"  />
         <br/>
         <br/>
-        <label htmlFor="">Email</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email"  />
-        <br/>
-        <br/>
-        <label htmlFor="">Password</label>
-        <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Enter Password"  />
+        <label htmlFor="">Last-Name</label>
+        <input value={lname} onChange={(e) => setLName(e.target.value)}  placeholder="Enter Last Name"  />
         <br/>
         <br/>
         <label htmlFor="">User name</label>
         <input value={userName} onChange={(e) => setUsrName(e.target.value)}  placeholder="Enter User_Name"  />
         <br/>
         <br/>
-        <label htmlFor="">Mobile</label>
-        <input value={mobile} onChange={(e) => setMobile(e.target.value)}  placeholder="Enter Mobile"  />
+        <label htmlFor="">Password</label>
+        <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Enter Password"  />
         <br/>
         <br/>
-        <label htmlFor="">Dec</label>
-        <input value={description} onChange={(e) => setDesc(e.target.value)}  placeholder="Enter Description"/>
+        <label htmlFor="">Email</label>
+        <input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email"  />
         <br/>
+        
         <br/>
-        <button onClick={() => handleSignup(name,email,password,userName,mobile,description)} >SIGNUP</button>
+        <button onClick={() => handleSignup(fname,lname,email,password,userName)} >SIGNUP</button>
     </div>
   )
 }

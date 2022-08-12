@@ -3,7 +3,6 @@ import { GET_PROFILE, LOGIN, LOGOUT, SIGNUP } from "./actionTypes";
 
 const initialState = {
     token:"",
-
     profile:[]
 }
 export const reducer = (state = initialState , action) => {

@@ -18,6 +18,14 @@
     justify-content: center;
     flex-direction: column;
 }
+.count_todo_cont{
+    border: 1px solid black;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 .count_all{
     border: 1px solid green;
     height: 50px;
@@ -27,6 +35,16 @@
     align-items: center;
     justify-content: space-around;
     background-color: rgb(151, 202, 151);
+}
+.count_todo{
+    border: 1px solid green;
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+   
 }
 .count_personal{
     border: 1px solid rgb(212, 118, 208);
@@ -38,6 +56,16 @@
     justify-content: space-around;
     background-color: rgb(157, 120, 199);
 }
+.count_done{
+    border: 1px solid rgb(212, 118, 208);
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+   
+}
 .count_official{
     border: 1px solid rgb(118, 132, 212);
     height: 50px;
@@ -47,6 +75,16 @@
     align-items: center;
     justify-content: space-around;
     background-color: rgb(65, 58, 155);
+}
+.count_progress{
+    border: 1px solid rgb(118, 132, 212);
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+   
 }
 .count_other{
     border: 1px solid rgb(47, 83, 30);
