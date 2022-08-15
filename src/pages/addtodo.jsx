@@ -56,6 +56,7 @@ const AddTodo = () => {
 
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(cleartodo())
     navigate('/signup')
   }
 
@@ -95,6 +96,9 @@ const[allTodo,SetAlltodo]=useState([])
     }
     if(data.state=="done"){
       dispatch(incdone(1))
+    }
+    if(data){
+      dispatch(incall(1))
     }
     dispatch(addtodo(data))
     alert("succefully added")

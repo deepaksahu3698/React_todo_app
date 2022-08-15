@@ -9,7 +9,7 @@ import { logout } from '../redux/auth/action'
 import Userdetails from './Userdetails';
 import  {TodoContext} from "./addtodo"
 import { useContext } from "react";
-import { addtodo,togglesubtodo } from '../redux/todo/action'
+import { addtodo,cleartodo,togglesubtodo } from '../redux/todo/action'
 const Home = () => {
 
   const dispatch = useDispatch()
@@ -52,6 +52,7 @@ const Home = () => {
   
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(cleartodo())
     navigate('/signup')
   }
 //   const base_url=process.env.REACT_APP_BASE_URL

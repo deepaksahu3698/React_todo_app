@@ -1,5 +1,6 @@
 export const ADDTODO="ADDTODO"
 export const TOOGLE_SUB_TODO="TOOGLE_SUB_TODO"
+export const DELETE_ALL_TODO="DELETE_ALL_TODO"
 
 export const INC_ALL="INC_ALL"
 export const INC_PERSONAL="INC_PERSONAL"

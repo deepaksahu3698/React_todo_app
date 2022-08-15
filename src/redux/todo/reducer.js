@@ -1,4 +1,4 @@
-import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER, INC_ALL,INC_TODO,INC_IN_PROGRESS,INC_DONE } from "./actionTypes";
+import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER, INC_ALL,INC_TODO,INC_IN_PROGRESS,INC_DONE,DELETE_ALL_TODO } from "./actionTypes";
 import { store } from "../store";
 
 const initialState={
@@ -58,6 +58,9 @@ export const todoreduser=(state=initialState,action)=>{
         case INC_IN_PROGRESS:return{
             ... state,
             progress:state.progress+action.payload
+        }
+        case DELETE_ALL_TODO:return{
+            state:initialState
         }
         default:return{
             ...state

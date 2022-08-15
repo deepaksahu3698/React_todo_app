@@ -1,5 +1,5 @@
 
-import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER,INC_ALL, INC_TODO, INC_DONE, INC_IN_PROGRESS } from "./actionTypes";
+import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER,INC_ALL, INC_TODO, INC_DONE, INC_IN_PROGRESS,DELETE_ALL_TODO } from "./actionTypes";
 
 export const addtodo=(payload)=>{
     return{
@@ -63,4 +63,10 @@ export const incprogress=(payload)=>{
         payload
     }
 
+}
+export const cleartodo=(payload)=>{
+    return{
+        type:DELETE_ALL_TODO,
+        payload
+    }
 }

@@ -28,6 +28,7 @@ const Summary = () => {
 
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(cleartodo())
     navigate('/signup')
   }
  

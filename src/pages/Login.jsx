@@ -51,7 +51,7 @@ const Login = () => {
     <div>
       <h1>LOGIN</h1>
       <label htmlFor="">User Email : </label>
-      <input value={usrName} onChange={(e) => setUsrName(e.target.value)} placeholder="Enter user name" />
+      <input value={usrName} onChange={(e) => setUsrName(e.target.value)} placeholder="Enter user Email" />
       <br />
       <br />
       <label htmlFor="">Password : </label>
