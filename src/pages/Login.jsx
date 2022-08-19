@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPass] = React.useState("")
   const dispatch = useDispatch()
   // const token = useSelector(state => state?.token)
-
+  let [token,setToken]=React.useState("")
   const handleLogin =async(usrName, password) => {
     const data = {
       username:usrName,
@@ -20,7 +20,7 @@ const Login = () => {
     }
     console.log(data)
     // localStorage.setItem("Loginuser",JSON.stringify(usrName))
- await fetch(`https://www.mecallapi.com/api/login`, {
+  await fetch(`https://www.mecallapi.com/api/login`, {
       method: "POST",
       mode:"cors",
       body: JSON.stringify(data),
@@ -31,19 +31,57 @@ const Login = () => {
       .then((res) => {
           console.log(res)
           if(res.message=="Login failed"){
-            alert("Creat a new user")
+            alert("Token expired  please Create a new user")
+            // navigate("/signup");
+          
           }
           dispatch(login(res.accessToken));
-             navigate("/")
+          
+  // setToken(res.accessToken)
+  localStorage.setItem("token",res.accessToken)
       })
       .catch((err) =>
              console.log(err)
       )
 
+      // const [profileData,setProfiledata]=React.useState([])
+     
+      user()
 
-      
   }
   
+ 
+
+  const user=async()=>{
+    let token=localStorage.getItem("token")
+    
+    console.log(token)
+    
+   await fetch(` https://www.mecallapi.com/api/auth/user`,{
+      method:"GET",
+      mode:"cors",
+            headers:{
+          
+              Authorization: `Bearer ${token}`
+           }
+    }).then((res) => res.json())
+    .then((res) => {
+    console.log(res.user)
+        dispatch(getProfile(res.user));
+        // setProfiledata(res.user)
+        navigate("/")
+          
+    })
+    .catch((err) =>
+           console.log(err)
+    )
+  }
+ 
+
+//  React.useEffect(()=>{
+  
+//  },[])
+    
   
 //   React.useEffect(handleLogin,[])
   

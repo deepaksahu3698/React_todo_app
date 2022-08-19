@@ -34,7 +34,7 @@ const Signup = () => {
             }
         }).then((res) => res.json())
         .then((res) => {
-            dispatch(signup());
+            // dispatch(signup());
             navigate('/login');
         })
         .catch((err) => console.log(err))

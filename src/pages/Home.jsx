@@ -15,32 +15,9 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [data, setData] = React.useState([])
-  const [profileData,setProfiledata]=React.useState([])
-    const token = useSelector(state => state?.auth.token)
+ 
 
-    const user=()=>{
-    fetch(` https://www.mecallapi.com/api/auth/user`,{
-      method:"GET",
-      mode:"cors",
-            headers:{
-          
-              Authorization: `Bearer ${token}`
-           }
-    }).then((res) => res.json())
-    .then((res) => {
     
-        dispatch(getProfile(res.user));
-        setProfiledata(res.user)
-     
-          
-    })
-    .catch((err) =>
-           console.log(err)
-    )
-  }
-  React.useEffect(()=>{
-    user()
-  },[token])
 
   //  console.log(profileData)
     // const profileData = useSelector(state => state?.auth.profile)
@@ -59,7 +36,8 @@ const Home = () => {
   // const handleFetch = () => {
   //   fetch(`https://advtododb.herokuapp.com/tasks`).then((res) => res.json()).then((res) => setData(res))
   // }
- 
+  const token = useSelector(state => state?.auth.token)
+  const profileData = useSelector(state => state?.auth.profile)
   const tododata = useSelector(state => state?.todo.todo)
   const all=useSelector(state =>state?.todo.all)
   const personal=useSelector(state =>state?.todo.personal)
@@ -81,8 +59,23 @@ const Home = () => {
 // }
 //   })
 //   console.log(all)
-  
 
+const toggle=(status,id)=>{
+  console.log(id)
+const updatedata=tododata.map((e)=>{
+
+  // upsub=
+  let upsub=[...e.subTask].map((el)=>{
+    el.id==id?{...el,status:!el.status}:el
+  })
+  e.subTask.map((el)=>{
+    console.log(el)
+
+  })
+  e.subTask=upsub
+})
+console.log(updatedata)
+}
   return (
     (!token) ? <Navigate to='/login' /> : <div className='container_home'>
       <div className='profile_div'>
@@ -147,7 +140,7 @@ const Home = () => {
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                         <p>{e.title}</p>
-                        <FormControlLabel onClick={() => dispatch(togglesubtodo(e.id))} control={<Checkbox checked={e.status} />} />
+                        <FormControlLabel control={<Checkbox checked={e.status} />} />
                      
                       
                     </div>
@@ -177,7 +170,7 @@ const Home = () => {
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                          <h3>{e.title}</h3>
-                         <FormControlLabel onClick={() => dispatch(togglesubtodo(e.id))} control={<Checkbox checked={e.status} />} />
+                         <input type="checkbox" name="" id="" onChange={()=>toggle(e.status,e.id)} checked={e.status}/>
                      
                     </div>
                   ))
@@ -206,7 +199,7 @@ const Home = () => {
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                         <p>{e.title}</p>
-                        <FormControlLabel onClick={() => dispatch(togglesubtodo(e.id))} control={<Checkbox checked={e.status} />} />
+                        <FormControlLabel  control={<Checkbox checked={e.status} />} />
                       
                     </div>
                   ))
