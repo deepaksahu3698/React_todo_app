@@ -9,12 +9,12 @@ import { logout } from '../redux/auth/action'
 import Userdetails from './Userdetails';
 import  {TodoContext} from "./addtodo"
 import { useContext } from "react";
-import { addtodo,cleartodo,togglesubtodo } from '../redux/todo/action'
+import { addtodo,cleartodo,togglesubtodo,objectid } from '../redux/todo/action'
 const Home = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [data, setData] = React.useState([])
+  
  
 
     
@@ -38,14 +38,17 @@ const Home = () => {
   // }
   const token = useSelector(state => state?.auth.token)
   const profileData = useSelector(state => state?.auth.profile)
-  const tododata = useSelector(state => state?.todo.todo)
+  console.log(profileData)
+  const tododataa = useSelector(state => state?.todo.todo)
+  const [tododata, setData] = React.useState(tododataa)
+  console.log(tododata)
+ 
   const all=useSelector(state =>state?.todo.all)
   const personal=useSelector(state =>state?.todo.personal)
   const official=useSelector(state =>state?.todo.official)
   const other=useSelector(state =>state?.todo.other)
-  // console.log(tododata)
 
-  
+  // setData(tododata_redux)
   
 //   data.forEach((e)=>{
 // if(e.tag=="other"){
@@ -60,22 +63,36 @@ const Home = () => {
 //   })
 //   console.log(all)
 
-const toggle=(status,id)=>{
-  console.log(id)
-const updatedata=tododata.map((e)=>{
-
-  // upsub=
-  let upsub=[...e.subTask].map((el)=>{
-    el.id==id?{...el,status:!el.status}:el
-  })
-  e.subTask.map((el)=>{
-    console.log(el)
-
-  })
-  e.subTask=upsub
-})
-console.log(updatedata)
+const toggle=(ids,ido)=>{
+  let newtodo=tododata.map(e => {
+    
+     return{...e,subTask:e.subTask.map(el=>{
+if(el.id===ids){
+  return{...el,status:!el.status}
+  // console.log(!el.status)
 }
+else{
+  return el
+}
+      })
+    }
+    
+    
+  })
+  console.log(newtodo)
+  // dispatch(cleartodo())
+  // for(let i=0;i<newtodo.length;i++){
+    // }
+    // dispatch(addtodo(newtodo))
+  setData(newtodo)
+   
+}
+const gotoedit=(id)=>{
+  localStorage.setItem("todoid",id)
+  dispatch(objectid(id))
+  navigate("/edittodo")
+}
+
   return (
     (!token) ? <Navigate to='/login' /> : <div className='container_home'>
       <div className='profile_div'>
@@ -87,10 +104,11 @@ console.log(updatedata)
           </div>
           <hr />
           <div>
-            <div><h3>First Name -{`${profileData.fname}`}</h3></div>
-            <div><h3>Last Name -{`${profileData.lname}`}</h3></div>
-            <div><h3> Email -{`${profileData.username}`}</h3></div>
-            <div><h3>User name -{`${profileData.email}`}</h3></div>
+            <div><h3>Name -{`${profileData.name}`}</h3></div>
+            <div><h3> Email -{`${profileData.email}`}</h3></div>
+            <div><h3>User name -{`${profileData.username}`}</h3></div>
+            <div><h3>Mobile -{`${profileData.mobile}`}</h3></div>
+            <div><h3>Description -{`${profileData.description}`}</h3></div>
           </div>
 
           <div className='count_number'>
@@ -122,7 +140,7 @@ console.log(updatedata)
         </div>
       </div>
     
-<div className="todo">
+<div className="todo" >
       <div style={{border:"2px solid blue"}}>
         <div style={{backgroundColor:"blue"}}>
           <h2 >Todo</h2>
@@ -140,12 +158,13 @@ console.log(updatedata)
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                         <p>{e.title}</p>
-                        <FormControlLabel control={<Checkbox checked={e.status} />} />
+                        <input type="checkbox" name="" id="" onChange={()=>toggle(e.id,el.id)} checked={e.status}/>
                      
                       
                     </div>
                   ))
                 }
+                <button onClick={()=>gotoedit(el.id)}>Edit task</button>
               </div> : console.log())
           }
         </div>
@@ -170,11 +189,12 @@ console.log(updatedata)
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                          <h3>{e.title}</h3>
-                         <input type="checkbox" name="" id="" onChange={()=>toggle(e.status,e.id)} checked={e.status}/>
+                         <input type="checkbox" name="" id="" onChange={()=>toggle(e.id,el.id)} checked={e.status}/>
                      
                     </div>
                   ))
                 }
+                 <button onClick={()=>gotoedit(el.id)}>Edit task</button>
               </div> : console.log())
           }
         </div>
@@ -199,11 +219,12 @@ console.log(updatedata)
                   el.subTask.map((e) => (
                     <div key={e.id} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between",marginLeft:"10px", marginRight:"10px"}} >
                         <p>{e.title}</p>
-                        <FormControlLabel  control={<Checkbox checked={e.status} />} />
+                        <input type="checkbox" name="" id="" onChange={()=>toggle(e.id,el.id)} checked={e.status}/>
                       
                     </div>
                   ))
                 }
+                 <button onClick={()=>gotoedit(el.id)}>Edit task</button>
               </div> : console.log())
           }
         </div>

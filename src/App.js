@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import Navbar from "./components/Navbar";
-import Page from "./pages/allPages";
+import Page from "./pages/homepage";
 import Userdetails from './pages/Userdetails';
 
 function App() {

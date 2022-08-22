@@ -4,68 +4,62 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../redux/auth/action'
 import { useDispatch } from 'react-redux'
+import { Register } from '../redux/auth/action'
+const initialState = {
+    "name": "",
+    "email": "", 
+    "password": "", 
+    "username": "", 
+    "mobile": "", 
+    "description": "", 
+}
 
 const Signup = () => {
-    const [fname,setFName] = React.useState("")
-    const [lname,setLName] = React.useState("")
-    const [userName,setUsrName] = React.useState("")
-    const [password,setPass] = React.useState("")
-    const [email,setEmail] =React.useState("")
-   
+    
+   const[user,setUser]=React.useState(initialState)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
-    const handleSignup =async (fname,lname,userName,password,email) => {
-        const data = {
-            fname,
-            lname,
-            username:userName,
-            password ,
-            email,
-            avatar: "https://www.mecallapi.com/users/cat.png"
-            
-        }
-        console.log(data)
-      await fetch(`https://www.mecallapi.com/api/users/create`,{
-            method:"POST",
-            body: JSON.stringify(data),
-            headers:{
-                "content-Type" : "application/json"
-            }
-        }).then((res) => res.json())
-        .then((res) => {
-            // dispatch(signup());
-            navigate('/login');
-        })
-        .catch((err) => console.log(err))
+    const handleChange = (e) => {
+        let {name, value} = e.target
+        setUser({ ...user, [name]: value })
     }
-    
+    let {name, email, password, username, mobile, description} = user
+    const handleClick = () => {
+        // console.log(user)
+        dispatch(Register(user))
+        navigate("/login")
+    }
   return (
     <div>
         <br/>
         <br/>
-        <label htmlFor="">First-Name</label>
-        <input value={fname} onChange={(e) => setFName(e.target.value)}  placeholder="Enter First Name"  />
-        <br/>
-        <br/>
-        <label htmlFor="">Last-Name</label>
-        <input value={lname} onChange={(e) => setLName(e.target.value)}  placeholder="Enter Last Name"  />
-        <br/>
-        <br/>
-        <label htmlFor="">User name</label>
-        <input value={userName} onChange={(e) => setUsrName(e.target.value)}  placeholder="Enter User_Name"  />
-        <br/>
-        <br/>
-        <label htmlFor="">Password</label>
-        <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Enter Password"  />
+        <label htmlFor="">Name</label>
+        <input value={name} name="name" onChange={handleChange}  placeholder="Enter First Name"  />
         <br/>
         <br/>
         <label htmlFor="">Email</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email"  />
+        <input value={email} name="email" onChange={handleChange}  placeholder="Enter Email"  />
         <br/>
+         <br/>
+        <label htmlFor="">User name</label>
+        <input value={username} name="username" onChange={handleChange}  placeholder="Enter User_Name"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Password</label>
+        <input  value={password} name="password" onChange={handleChange} type="password" placeholder="Enter Password"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Mobile</label>
+        <input value={mobile} name="mobile" onChange={handleChange}  placeholder="Enter Mobile Number"  />
+        <br/>
+        <br/>
+        <label htmlFor="">Description</label>
+        <input value={description} name="description" onChange={handleChange}  placeholder="Enter Description"  />
+        <br/>
+       
         
         <br/>
-        <button onClick={() => handleSignup(fname,lname,email,password,userName)} >SIGNUP</button>
+        <button onClick={handleClick} >SIGNUP</button>
     </div>
   )
 }

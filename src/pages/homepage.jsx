@@ -5,6 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import AddTodo from "./addtodo";
 import Summary from "./summary";
+import EditTodo from "./edittask";
 
 const Pages = () => {
     return(
@@ -14,6 +15,8 @@ const Pages = () => {
             <Route path="/summary" element={<Summary/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
+            <Route path="/edittodo" element={<EditTodo/>}/>
+        
             <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
     )

@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { logout } from '../redux/auth/action'
 // import SubTask from './SubTask'
 import "./summary.css"
-// import { addtodo,incofficial,incother,incpersonal,togglesubtodo } from '../redux/todo/action'
+import { addtodo,incofficial,incother,incpersonal,togglesubtodo,cleartodo } from '../redux/todo/action'
 
 const Summary = () => {
   const dispatch = useDispatch()
@@ -53,11 +53,12 @@ const Summary = () => {
         </div>
         <hr />
         <div>
-        <div><h3>First Name -{`${profileData.fname}`}</h3></div>
-            <div><h3>Last Name -{`${profileData.lname}`}</h3></div>
-            <div><h3> Email -{`${profileData.username}`}</h3></div>
-            <div><h3>User name -{`${profileData.email}`}</h3></div>
-        </div>
+            <div><h3>Name -{`${profileData.name}`}</h3></div>
+            <div><h3> Email -{`${profileData.email}`}</h3></div>
+            <div><h3>User name -{`${profileData.username}`}</h3></div>
+            <div><h3>Mobile -{`${profileData.mobile}`}</h3></div>
+            <div><h3>Description -{`${profileData.description}`}</h3></div>
+          </div>
 
        <div className='count_number'>
           <div className='count_all'>

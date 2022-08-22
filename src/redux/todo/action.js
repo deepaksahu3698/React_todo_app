@@ -1,5 +1,5 @@
 
-import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER,INC_ALL, INC_TODO, INC_DONE, INC_IN_PROGRESS,DELETE_ALL_TODO } from "./actionTypes";
+import { ADDTODO,TOOGLE_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER,INC_ALL, INC_TODO, INC_DONE, INC_IN_PROGRESS,DELETE_ALL_TODO,OBJECT_ID } from "./actionTypes";
 
 export const addtodo=(payload)=>{
     return{
@@ -7,9 +7,15 @@ export const addtodo=(payload)=>{
         payload
     }
 }
-export const togglesubtodo=(payload)=>{
+export const toggletodo=(payload)=>{
     return{
-        type:TOOGLE_SUB_TODO,
+        type:TOOGLE_TODO,
+        payload
+    }
+}
+export const objectid=(payload)=>{
+    return{
+        type:OBJECT_ID,
         payload
     }
 }

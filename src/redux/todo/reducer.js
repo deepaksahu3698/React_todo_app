@@ -1,4 +1,4 @@
-import { ADDTODO,TOOGLE_SUB_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER, INC_ALL,INC_TODO,INC_IN_PROGRESS,INC_DONE,DELETE_ALL_TODO } from "./actionTypes";
+import { ADDTODO,TOOGLE_TODO,INC_OFFICIAL,INC_PERSONAL,INC_OTHER, INC_ALL,INC_TODO,INC_IN_PROGRESS,INC_DONE,DELETE_ALL_TODO, OBJECT_ID } from "./actionTypes";
 import { store } from "../store";
 
 const initialState={
@@ -10,7 +10,9 @@ const initialState={
     other:0,
     todo_count:0,
     done:0,
-    progress:0
+    progress:0,
+    objectid:""
+
 
 }
 
@@ -20,14 +22,20 @@ export const todoreduser=(state=initialState,action)=>{
             ...state,
             todo:[...state.todo,action.payload]
         }
-        case TOOGLE_SUB_TODO:return{
+        case TOOGLE_TODO:return{
             ...state,
-            todo:state.todo.map((e)=>
-            e.subTask.map((el)=>{
-//  el.id===action.payload?{...el,status:!el.status}:el
-            })
+            todo:state.todo.filter((e=>
+           
+               e.id!==action.payload
+        
+           
                 
-            )
+            ))
+        
+        }
+        case OBJECT_ID:return{
+            ...state,
+            objectid:action.payload
         }
         case INC_ALL:return{
             ... state,

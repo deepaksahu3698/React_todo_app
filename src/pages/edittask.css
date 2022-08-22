@@ -1,0 +1,66 @@
+.addtodocontainer{
+    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+}
+.entry_container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    width: 70%;
+}
+
+.count_number{
+    border: 1px solid black;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.count_all{
+    border: 1px solid green;
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(151, 202, 151);
+}
+.count_personal{
+    border: 1px solid rgb(212, 118, 208);
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(157, 120, 199);
+}
+.count_official{
+    border: 1px solid rgb(118, 132, 212);
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(65, 58, 155);
+}
+.count_other{
+    border: 1px solid rgb(47, 83, 30);
+    height: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(58, 155, 71);
+}
+.logout_button{
+    height: 50px;
+    background-color: teal;
+    font-size: 20px;
+    color: white;
+}
